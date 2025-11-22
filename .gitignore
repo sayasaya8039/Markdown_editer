@@ -39,3 +39,8 @@ Thumbs.db
 
 # Test files
 test_*.md
+
+# PyInstaller
+*.spec.bak
+build/
+dist/

@@ -33,7 +33,39 @@ cd Markdown_editer
 pip install -r requirements.txt
 ```
 
-## 使い方
+## EXE形式で使用する（Pythonのインストール不要）
+
+### オプション1: ビルド済みのEXEファイルを使用
+
+Releasesページから最新版のEXEファイルをダウンロードして使用できます。
+
+1. Releasesページから `MarkdownEditor.zip` をダウンロード
+2. ZIPファイルを解凍
+3. `MarkdownEditor` フォルダ内の `markdown_editor.exe` を実行
+
+**注意**: Pythonのインストールは不要です。EXEファイルには必要なすべてが含まれています。
+
+### オプション2: 自分でEXEファイルをビルド
+
+自分でEXEファイルを作成することもできます:
+
+1. 必要なパッケージをインストール
+
+```bash
+pip install -r requirements.txt
+```
+
+2. ビルドスクリプトを実行
+
+```bash
+build.bat
+```
+
+3. 完成したEXEファイルは `dist\MarkdownEditor\` フォルダに生成されます
+
+ビルドには数分かかる場合があります。完成後、`dist\MarkdownEditor` フォルダ全体を他のWindows PCにコピーして実行できます。
+
+## Pythonから直接使用する
 
 ### アプリケーションの起動
 
