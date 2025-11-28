@@ -1,153 +1,73 @@
-# Markdown Editor
+# React + TypeScript + Vite
 
-Windows用のシンプルで軽量なMarkdownエディタです。Python + Tkinterで作成されています。
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 特徴
+Currently, two official plugins are available:
 
-- **左右分割レイアウト**: 左側でMarkdownを編集、右側でリアルタイムプレビュー
-- **リアルタイムプレビュー**: 入力と同時にHTMLプレビューが更新されます
-- **ダークテーマエディタ**: 目に優しいダークテーマのテキストエディタ
-- **ファイル操作**: Markdownファイルの新規作成、開く、保存、名前を付けて保存
-- **画像ダウンロード機能**: Markdown内の画像URLを自動的にダウンロードしてローカルパスに置き換え
-- **編集機能**: Undo/Redo、Cut/Copy/Paste対応
-- **Markdown拡張サポート**: テーブル、コードブロック、目次などをサポート
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## インストール
+## React Compiler
 
-### 必要要件
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- Python 3.8以上
+## Expanding the ESLint configuration
 
-### セットアップ
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-1. リポジトリをクローン
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-```bash
-git clone <repository-url>
-cd Markdown_editer
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-2. 必要なパッケージをインストール
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```bash
-pip install -r requirements.txt
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-## EXE形式で使用する（Pythonのインストール不要）
-
-### オプション1: ビルド済みのEXEファイルを使用
-
-Releasesページから最新版のEXEファイルをダウンロードして使用できます。
-
-1. Releasesページから `MarkdownEditor.zip` をダウンロード
-2. ZIPファイルを解凍
-3. `MarkdownEditor` フォルダ内の `markdown_editor.exe` を実行
-
-**注意**: Pythonのインストールは不要です。EXEファイルには必要なすべてが含まれています。
-
-### オプション2: 自分でEXEファイルをビルド
-
-自分でEXEファイルを作成することもできます:
-
-1. 必要なパッケージをインストール
-
-```bash
-pip install -r requirements.txt
-```
-
-2. ビルドスクリプトを実行
-
-```bash
-build.bat
-```
-
-3. 完成したEXEファイルは `dist\MarkdownEditor\` フォルダに生成されます
-
-ビルドには数分かかる場合があります。完成後、`dist\MarkdownEditor` フォルダ全体を他のWindows PCにコピーして実行できます。
-
-## Pythonから直接使用する
-
-### アプリケーションの起動
-
-```bash
-python markdown_editor.py
-```
-
-### 基本操作
-
-#### ファイル操作
-
-- **新規作成**: `File` → `New` または `Ctrl+N`
-- **ファイルを開く**: `File` → `Open` または `Ctrl+O`
-- **保存**: `File` → `Save` または `Ctrl+S`
-- **名前を付けて保存**: `File` → `Save As` または `Ctrl+Shift+S`
-
-#### 編集操作
-
-- **元に戻す**: `Edit` → `Undo` または `Ctrl+Z`
-- **やり直し**: `Edit` → `Redo` または `Ctrl+Y`
-- **切り取り**: `Edit` → `Cut` または `Ctrl+X`
-- **コピー**: `Edit` → `Copy` または `Ctrl+C`
-- **貼り付け**: `Edit` → `Paste` または `Ctrl+V`
-
-#### 画像ダウンロード機能
-
-Markdown内に画像URLが含まれている場合、それらをローカルにダウンロードできます:
-
-1. `Tools` → `Download Images` をクリック
-2. 画像の保存先ディレクトリを選択
-3. 画像が自動的にダウンロードされ、Markdown内のURLがローカルパスに置き換わります
-
-例:
-```markdown
-![sample](https://example.com/image.jpg)
-```
-↓ ダウンロード後
-```markdown
-![sample](C:/Users/YourName/Images/image.jpg)
-```
-
-## サポートされているMarkdown記法
-
-- **見出し**: `# H1`, `## H2`, `### H3`, etc.
-- **強調**: `*italic*`, `**bold**`, `***bold italic***`
-- **リスト**: 順序付き・順序なしリスト
-- **リンク**: `[text](url)`
-- **画像**: `![alt](url)`
-- **コードブロック**: ` ```language ` で囲む
-- **インラインコード**: `` `code` ``
-- **引用**: `> quote`
-- **テーブル**: GitHub風のテーブル記法
-- **水平線**: `---` または `***`
-
-## プレビュースタイル
-
-プレビューはGitHub風のスタイルで表示されます:
-- 見出しには下線が付きます
-- コードブロックは背景色付きで表示
-- テーブルは縞模様で見やすく表示
-- リンクは青色で表示
-
-## トラブルシューティング
-
-### tkinterwebが正しく動作しない場合
-
-tkinterwebのインストールに問題がある場合は、以下を試してください:
-
-```bash
-pip install --upgrade tkinterweb
-```
-
-### 画像が表示されない場合
-
-- 画像のパスが正しいか確認してください
-- ローカル画像の場合は絶対パスまたは相対パスを使用してください
-- URLの画像の場合はインターネット接続を確認してください
-
-## ライセンス
-
-MIT License
-
-## 貢献
-
-バグ報告や機能要望は、GitHubのIssuesでお願いします。
